@@ -21,15 +21,35 @@ export const SCOPES = [
   'https://www.googleapis.com/auth/spreadsheets.readonly'
 ];
 
-// Reuse existing Firebase app instance if already created
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-export const auth = getAuth(app);
+// Reuse existing Firebase app instance if already created (with safe lazy initialization)
+let authInstance: any = null;
+let providerInstance: GoogleAuthProvider | null = null;
 
-const provider = new GoogleAuthProvider();
-SCOPES.forEach(scope => provider.addScope(scope));
-provider.setCustomParameters({
-  prompt: 'select_account'
-});
+export function getFirebaseAuth() {
+  if (!authInstance) {
+    try {
+      if (typeof window !== 'undefined') {
+        const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+        authInstance = getAuth(app);
+      }
+    } catch (err) {
+      console.warn('Firebase lazy initialization notice:', err);
+      return null;
+    }
+  }
+  return authInstance;
+}
+
+export function getGoogleAuthProvider(): GoogleAuthProvider {
+  if (!providerInstance) {
+    providerInstance = new GoogleAuthProvider();
+    SCOPES.forEach(scope => providerInstance!.addScope(scope));
+    providerInstance.setCustomParameters({
+      prompt: 'select_account'
+    });
+  }
+  return providerInstance;
+}
 
 let isSigningIn = false;
 let cachedAccessToken: string | null = null;
@@ -38,6 +58,12 @@ export const initAuth = (
   onAuthSuccess?: (user: User, token: string) => void,
   onAuthFailure?: () => void
 ) => {
+  const auth = getFirebaseAuth();
+  if (!auth) {
+    if (onAuthFailure) onAuthFailure();
+    return () => {};
+  }
+
   return onAuthStateChanged(auth, async (user: User | null) => {
     if (user) {
       if (cachedAccessToken) {
@@ -55,7 +81,12 @@ export const initAuth = (
 
 export const googleSignIn = async (): Promise<{ user: User; accessToken: string } | null> => {
   try {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      throw new Error('Servicio de autenticación no inicializado');
+    }
     isSigningIn = true;
+    const provider = getGoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (!credential?.accessToken) {
@@ -77,7 +108,10 @@ export const getAccessToken = async (): Promise<string | null> => {
 };
 
 export const logout = async () => {
-  await signOut(auth);
+  const auth = getFirebaseAuth();
+  if (auth) {
+    await signOut(auth);
+  }
   cachedAccessToken = null;
 };
 
