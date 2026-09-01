@@ -4,12 +4,12 @@ import {
   Sparkles, 
   Presentation, 
   FlaskConical, 
-  Wine, 
-  Share2,
+  Factory,
   ChevronRight,
   ShieldCheck,
   Flame,
-  Award
+  Award,
+  BookOpen
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -36,12 +36,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif-title font-bold text-stone-50 leading-[1.18] tracking-tight">
               La Alquimia del Vodka: <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 italic">
-                Historia, Química y Cata Sensorial
+                Historia, Ciencia y Destilación
               </span>
             </h1>
 
             <p className="text-stone-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-              Una enciclopedia visual interactiva y blog de alta divulgación diseñado para presentaciones de clase. Descubre desde los orígenes medievales en Polonia y Rusia hasta la destilación continua a 96% ABV, ruedas de aromas y exportación directa a Blogger.
+              Una enciclopedia visual interactiva y blog de alta divulgación diseñado para presentaciones de clase. Explora desde los orígenes medievales en Polonia y Rusia hasta la destilación continua a 96% ABV, materias primas y catálogo de maquinaria industrial.
             </p>
 
             {/* Quick Action Buttons */}
@@ -49,7 +49,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               <button
                 id="hero-go-presentation-btn"
                 onClick={() => onNavigate('presentation')}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold text-sm shadow-lg shadow-amber-950/50 hover:shadow-amber-900/60 transition-all duration-200"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold text-sm shadow-lg shadow-amber-950/50 hover:shadow-amber-900/60 transition-all duration-200 cursor-pointer"
               >
                 <Presentation className="w-4 h-4 text-stone-950" />
                 <span>Iniciar Diapositivas de Clase</span>
@@ -59,19 +59,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               <button
                 id="hero-go-process-btn"
                 onClick={() => onNavigate('process')}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-200 border border-stone-700/60 font-medium text-sm transition-all"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-200 border border-stone-700/60 font-medium text-sm transition-all cursor-pointer"
               >
                 <FlaskConical className="w-4 h-4 text-amber-400" />
                 <span>Simulador de Destilación</span>
               </button>
 
               <button
-                id="hero-go-tasting-btn"
-                onClick={() => onNavigate('tasting')}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-200 border border-stone-700/60 font-medium text-sm transition-all"
+                id="hero-go-equipment-btn"
+                onClick={() => onNavigate('equipment')}
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-200 border border-stone-700/60 font-medium text-sm transition-all cursor-pointer"
               >
-                <Wine className="w-4 h-4 text-rose-400" />
-                <span>Cata & Ficha Sensorial</span>
+                <Factory className="w-4 h-4 text-amber-400" />
+                <span>Equipos Industriales</span>
               </button>
             </div>
 
@@ -118,22 +118,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Card 2: Tasting Card */}
+            {/* Card 2: Process Simulator */}
             <div 
-              onClick={() => onNavigate('tasting')}
+              onClick={() => onNavigate('process')}
               className="group p-4 rounded-2xl bg-stone-900/60 border border-stone-800 hover:border-amber-500/40 hover:bg-stone-900/90 transition-all cursor-pointer shadow-lg"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform">
-                    <Wine className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
+                    <FlaskConical className="w-5 h-5" />
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-stone-100 group-hover:text-amber-300 transition-colors">
-                      Laboratorio de Cata & Aromas
+                      Simulador de Destilación
                     </h3>
                     <p className="text-xs text-stone-400">
-                      Generador de fichas de cata con rueda sensorial y texturas.
+                      Control termodinámico interactivo del proceso paso a paso.
                     </p>
                   </div>
                 </div>
@@ -141,22 +141,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Card 3: Blogger Exporter */}
+            {/* Card 3: Industrial Equipment Catalog */}
             <div 
-              onClick={() => onNavigate('blogger-export')}
+              onClick={() => onNavigate('equipment')}
               className="group p-4 rounded-2xl bg-stone-900/60 border border-stone-800 hover:border-amber-500/40 hover:bg-stone-900/90 transition-all cursor-pointer shadow-lg"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
-                    <Share2 className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                    <Factory className="w-5 h-5" />
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-stone-100 group-hover:text-amber-300 transition-colors">
-                      Exportador Blogger / HTML
+                      Equipos Industriales
                     </h3>
                     <p className="text-xs text-stone-400">
-                      Copia el código limpio formateado para tu blog o reporte de entrega.
+                      Catálogo técnico de maquinaria de planta, columnas y envasado.
                     </p>
                   </div>
                 </div>

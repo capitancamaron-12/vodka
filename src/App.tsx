@@ -1,36 +1,18 @@
 import React, { useState } from 'react';
-import { TabType, Article } from './types';
+import { TabType } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { BlogView } from './components/BlogView';
 import { DistillationLab } from './components/DistillationLab';
-import { TastingStudio } from './components/TastingStudio';
 import { PresentationMode } from './components/PresentationMode';
-import { BloggerExporter } from './components/BloggerExporter';
-import { QuizClassroom } from './components/QuizClassroom';
-import { AiSommelierModal } from './components/AiSommelierModal';
+import { IndustrialEquipment } from './components/IndustrialEquipment';
 import { 
-  Wine, 
-  BookOpen, 
-  FlaskConical, 
-  Presentation, 
-  Share2, 
-  HelpCircle,
   GraduationCap,
-  Sparkles,
   Layers
 } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('blog');
-  const [selectedArticleForBlogger, setSelectedArticleForBlogger] = useState<Article | null>(null);
-  const [isSommelierOpen, setIsSommelierOpen] = useState<boolean>(false);
-
-  const handleExportArticle = (article: Article) => {
-    setSelectedArticleForBlogger(article);
-    setActiveTab('blogger-export');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
@@ -39,7 +21,6 @@ export default function App() {
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        onOpenSommelier={() => setIsSommelierOpen(true)}
       />
 
       {/* Hero Header Banner (Visible in Blog View for welcoming context) */}
@@ -53,35 +34,21 @@ export default function App() {
       {/* Main Tab Views */}
       <main className="flex-1">
         {activeTab === 'blog' && (
-          <BlogView onExportArticleToBlogger={handleExportArticle} />
+          <BlogView />
         )}
 
         {activeTab === 'process' && (
           <DistillationLab />
         )}
 
-        {activeTab === 'tasting' && (
-          <TastingStudio />
-        )}
-
         {activeTab === 'presentation' && (
           <PresentationMode />
         )}
 
-        {activeTab === 'blogger-export' && (
-          <BloggerExporter initialArticle={selectedArticleForBlogger} />
-        )}
-
-        {activeTab === 'quiz' && (
-          <QuizClassroom />
+        {activeTab === 'equipment' && (
+          <IndustrialEquipment />
         )}
       </main>
-
-      {/* AI Sommelier Floating Modal */}
-      <AiSommelierModal 
-        isOpen={isSommelierOpen} 
-        onClose={() => setIsSommelierOpen(false)} 
-      />
 
       {/* Academic Classroom Footer */}
       <footer className="border-t border-stone-800/80 bg-stone-950 py-10 mt-16 text-stone-400 text-xs">
@@ -97,7 +64,7 @@ export default function App() {
                   VODKA MASTERY
                 </span>
                 <p className="text-[11px] text-stone-500">
-                  Recurso Pedagógico para Presentaciones de Clase y Catas de Destilados
+                  Recurso Pedagógico para Presentaciones de Clase y Destilados
                 </p>
               </div>
             </div>
@@ -106,39 +73,27 @@ export default function App() {
             <div className="flex flex-wrap items-center gap-4 text-stone-400">
               <button 
                 onClick={() => { setActiveTab('blog'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="hover:text-amber-300 transition-colors"
+                className="hover:text-amber-300 transition-colors cursor-pointer"
               >
                 Artículos
               </button>
               <button 
                 onClick={() => { setActiveTab('process'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="hover:text-amber-300 transition-colors"
+                className="hover:text-amber-300 transition-colors cursor-pointer"
               >
                 Destilación
               </button>
               <button 
-                onClick={() => { setActiveTab('tasting'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="hover:text-amber-300 transition-colors"
-              >
-                Cata
-              </button>
-              <button 
                 onClick={() => { setActiveTab('presentation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="hover:text-amber-300 transition-colors"
+                className="hover:text-amber-300 transition-colors cursor-pointer"
               >
                 Diapositivas
               </button>
               <button 
-                onClick={() => { setActiveTab('blogger-export'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="hover:text-amber-300 transition-colors"
+                onClick={() => { setActiveTab('equipment'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="hover:text-amber-300 transition-colors cursor-pointer"
               >
-                Exportar Blogger
-              </button>
-              <button 
-                onClick={() => { setActiveTab('quiz'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="hover:text-amber-300 transition-colors"
-              >
-                Quiz
+                Equipos Industriales
               </button>
             </div>
           </div>

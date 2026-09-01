@@ -3,29 +3,22 @@ import { TabType } from '../types';
 import { 
   BookOpen, 
   FlaskConical, 
-  Sparkles, 
   Presentation, 
-  Share2, 
-  HelpCircle, 
-  Bot,
-  Wine,
+  Factory, 
   Layers
 } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
-  onOpenSommelier: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenSommelier }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const navItems: { id: TabType; label: string; icon: React.ReactNode; badge?: string }[] = [
     { id: 'blog', label: 'Blog & Artículos', icon: <BookOpen className="w-4 h-4" /> },
     { id: 'process', label: 'Proceso de Destilación', icon: <FlaskConical className="w-4 h-4" /> },
-    { id: 'tasting', label: 'Cata Sensorial', icon: <Wine className="w-4 h-4" /> },
     { id: 'presentation', label: 'Modo Presentación', icon: <Presentation className="w-4 h-4" />, badge: 'Clase' },
-    { id: 'blogger-export', label: 'Exportar Blogger / HTML', icon: <Share2 className="w-4 h-4" /> },
-    { id: 'quiz', label: 'Quiz de Clase', icon: <HelpCircle className="w-4 h-4" /> },
+    { id: 'equipment', label: 'Equipos Industriales', icon: <Factory className="w-4 h-4" />, badge: 'Planta' },
   ];
 
   return (
@@ -55,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
@@ -63,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
                   key={item.id}
                   id={`nav-btn-${item.id}`}
                   onClick={() => setActiveTab(item.id)}
-                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                     isActive 
                       ? 'text-amber-300 bg-amber-950/40 border border-amber-500/30 shadow-inner' 
                       : 'text-stone-300 hover:text-stone-100 hover:bg-stone-900/60'
@@ -80,24 +73,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
               );
             })}
           </nav>
-
-          {/* Right Action: Sommelier Button */}
-          <div className="flex items-center gap-2">
-            <button
-              id="open-sommelier-modal-btn"
-              onClick={onOpenSommelier}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold text-xs sm:text-sm hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-900/30 transition-all duration-200 active:scale-95 cursor-pointer"
-            >
-              <Wine className="w-4 h-4 text-stone-950" />
-              <span className="hidden sm:inline">Guía Sommelier</span>
-              <span className="sm:hidden">Guía</span>
-              <Sparkles className="w-3.5 h-3.5 text-stone-950 animate-pulse" />
-            </button>
-          </div>
         </div>
 
         {/* Mobile Navigation Horizontal Scroll */}
-        <div className="lg:hidden flex items-center gap-1.5 overflow-x-auto py-2.5 scrollbar-none border-t border-stone-800/40">
+        <div className="md:hidden flex items-center gap-1.5 overflow-x-auto py-2.5 scrollbar-none border-t border-stone-800/40">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
@@ -105,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
                 key={item.id}
                 id={`mobile-nav-btn-${item.id}`}
                 onClick={() => setActiveTab(item.id)}
-                className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
                   isActive 
                     ? 'text-amber-300 bg-amber-950/60 border border-amber-500/30' 
                     : 'text-stone-400 hover:text-stone-200 bg-stone-900/40'

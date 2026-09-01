@@ -1,11 +1,33 @@
 export type TabType = 
   | 'blog' 
   | 'process' 
-  | 'tasting' 
   | 'presentation' 
-  | 'blogger-export' 
-  | 'quiz' 
-  | 'sommelier';
+  | 'equipment';
+
+export interface IndustrialEquipmentItem {
+  id: string;
+  name: string;
+  category: 'Preparación y Molienda' | 'Maceración y Fermentación' | 'Destilación y Rectificación' | 'Filtración y Purificación' | 'Mezcla y Envasado';
+  phaseNumber: number;
+  stageName: string;
+  material: string;
+  capacityRange: string;
+  operatingParameters: {
+    temperature: string;
+    pressure: string;
+    throughputOrYield?: string;
+    targetAbv?: string;
+  };
+  functionDescription: string;
+  workingPrinciple: string;
+  keyComponents: string[];
+  maintenanceAndSanitization: string;
+  industrialDiagramDetails: string[];
+  imagePlaceholderIcon: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  academicImportance: string;
+}
 
 export interface Article {
   id: string;

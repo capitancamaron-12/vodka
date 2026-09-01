@@ -1,6 +1,6 @@
 {
   "name": "Vodka Mastery: Blog, Catas y Presentación Académica",
-  "description": "Plataforma educativa y blog visual sobre el vodka: historia milenaria, química y proceso de destilación, cata sensorial interactiva, rueda de aromas, diapositivas para clase y exportador para Blogger/HTML.",
+  "description": "Plataforma educativa y blog visual sobre el vodka: historia milenaria, química y proceso de destilación, materias primas, diapositivas para clase y catálogo de equipos industriales.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

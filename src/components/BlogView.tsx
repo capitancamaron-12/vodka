@@ -19,11 +19,9 @@ import {
   Search
 } from 'lucide-react';
 
-interface BlogViewProps {
-  onExportArticleToBlogger: (article: Article) => void;
-}
+interface BlogViewProps {}
 
-export const BlogView: React.FC<BlogViewProps> = ({ onExportArticleToBlogger }) => {
+export const BlogView: React.FC<BlogViewProps> = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
@@ -74,15 +72,6 @@ export const BlogView: React.FC<BlogViewProps> = ({ onExportArticleToBlogger }) 
             >
               <Bookmark className="w-4 h-4" />
               <span>{bookmarkedArticles.includes(selectedArticle.id) ? 'Guardado' : 'Guardar'}</span>
-            </button>
-
-            <button
-              id="export-to-blogger-btn"
-              onClick={() => onExportArticleToBlogger(selectedArticle)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold text-sm shadow-md transition-all"
-            >
-              <Share2 className="w-4 h-4" />
-              <span>Exportar a Blogger / HTML</span>
             </button>
           </div>
         </div>
@@ -188,18 +177,10 @@ export const BlogView: React.FC<BlogViewProps> = ({ onExportArticleToBlogger }) 
         <div className="pt-8 border-t border-stone-800 flex flex-wrap items-center justify-between gap-4">
           <button
             onClick={() => setSelectedArticle(null)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-200 text-sm font-medium border border-stone-800 transition-all"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-200 text-sm font-medium border border-stone-800 transition-all cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Volver a la lista de artículos</span>
-          </button>
-
-          <button
-            onClick={() => onExportArticleToBlogger(selectedArticle)}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-sm shadow-lg shadow-amber-950/50 transition-all"
-          >
-            <Share2 className="w-4 h-4" />
-            <span>Copiar para Blogger / WordPress / HTML</span>
           </button>
         </div>
       </div>
