@@ -9,9 +9,6 @@ import {
   Eye, 
   Sparkles, 
   FileText, 
-  Bot, 
-  RefreshCw,
-  ExternalLink,
   BookOpen
 } from 'lucide-react';
 
@@ -23,27 +20,13 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
   const [selectedArticleId, setSelectedArticleId] = useState<string>(initialArticle?.id || 'all-summary');
   const [activeView, setActiveView] = useState<'preview' | 'html' | 'markdown'>('html');
   const [copied, setCopied] = useState<boolean>(false);
-  
-  // Custom AI Generator state
-  const [customTopic, setCustomTopic] = useState<string>('');
-  const [isGeneratingAi, setIsGeneratingAi] = useState<boolean>(false);
-  const [generatedAiPost, setGeneratedAiPost] = useState<{
-    title: string;
-    excerpt: string;
-    html: string;
-    markdown: string;
-  } | null>(null);
 
   // Generate code based on selection
   let currentHtml = '';
   let currentMarkdown = '';
   let currentTitle = '';
 
-  if (generatedAiPost && selectedArticleId === 'ai-custom') {
-    currentTitle = generatedAiPost.title;
-    currentHtml = generatedAiPost.html;
-    currentMarkdown = generatedAiPost.markdown;
-  } else if (selectedArticleId === 'all-summary') {
+  if (selectedArticleId === 'all-summary') {
     currentTitle = 'El Arte del Vodka: Guía Completa de Historia, Destilación y Catas';
     currentHtml = BLOGGER_TEMPLATE_SAMPLE;
     currentMarkdown = `# El Arte del Vodka: Guía Completa de Historia, Destilación y Catas\n\n## 1. Historia Milenaria\nDel eslavo "voda" (agua). Primer registro en 1405 (Polonia).\n\n## 2. Proceso de Fabricación\nRectificación continua hasta 96.4% ABV y filtración con carbón de abedul siberiano.\n\n## 3. Guía de Catas\nEvaluación de textura (mouthfeel) a 6°C - 8°C en copa tulipa.`;
@@ -95,33 +78,10 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
   }
 
   const handleCopyCode = () => {
-    const textToCopy逗 = activeView === 'markdown' ? currentMarkdown : currentHtml;
-    navigator.clipboard.writeText(textToCopy逗);
+    const textToCopy = activeView === 'markdown' ? currentMarkdown : currentHtml;
+    navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
-  };
-
-  const handleGenerateAiPost = async () => {
-    if (!customTopic.trim()) return;
-    setIsGeneratingAi(true);
-    try {
-      const response = await fetch('/api/gemini/generate-article', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: customTopic,
-          focus: 'Cata, Historia y Proceso de Fabricación de Vodka para exposición de clase',
-          format: 'Entrada de Blogger en HTML limpio y semántico'
-        }),
-      });
-      const data不易 = await response.json();
-      setGeneratedAiPost(data不易);
-      setSelectedArticleId('ai-custom');
-    } catch (e) {
-      console.error('Error generating AI post:', e);
-    } finally {
-      setIsGeneratingAi(false);
-    }
   };
 
   return (
@@ -152,7 +112,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
       {/* Selectors & Mode Controls */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        {/* Left Side: Article Selector & AI Generator */}
+        {/* Left Side: Article Selector */}
         <div className="lg:col-span-4 space-y-6">
           
           {/* Article List Picker */}
@@ -166,7 +126,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
               <button
                 id="select-post-all-summary"
                 onClick={() => setSelectedArticleId('all-summary')}
-                className={`w-full p-3 rounded-xl text-left text-xs font-medium border transition-all flex items-center justify-between ${
+                className={`w-full p-3 rounded-xl text-left text-xs font-medium border transition-all flex items-center justify-between cursor-pointer ${
                   selectedArticleId === 'all-summary'
                     ? 'bg-amber-500 text-stone-950 font-bold border-amber-400 shadow-md'
                     : 'bg-stone-950 text-stone-300 border-stone-800 hover:text-stone-100 hover:bg-stone-900'
@@ -180,7 +140,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
                   key={art.id}
                   id={`select-post-${art.id}`}
                   onClick={() => setSelectedArticleId(art.id)}
-                  className={`w-full p-3 rounded-xl text-left text-xs font-medium border transition-all ${
+                  className={`w-full p-3 rounded-xl text-left text-xs font-medium border transition-all cursor-pointer ${
                     selectedArticleId === art.id
                       ? 'bg-amber-500 text-stone-950 font-bold border-amber-400 shadow-md'
                       : 'bg-stone-950 text-stone-300 border-stone-800 hover:text-stone-100 hover:bg-stone-900'
@@ -192,62 +152,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
                   </span>
                 </button>
               ))}
-
-              {generatedAiPost && (
-                <button
-                  id="select-post-ai"
-                  onClick={() => setSelectedArticleId('ai-custom')}
-                  className={`w-full p-3 rounded-xl text-left text-xs font-medium border transition-all ${
-                    selectedArticleId === 'ai-custom'
-                      ? 'bg-amber-500 text-stone-950 font-bold border-amber-400 shadow-md'
-                      : 'bg-stone-950 text-purple-300 border-purple-800/60 hover:bg-stone-900'
-                  }`}
-                >
-                  <span className="flex items-center gap-1.5 line-clamp-1">
-                    <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                    {generatedAiPost.title}
-                  </span>
-                  <span className="text-[10px] text-stone-500 block mt-0.5">Generado con IA Sommelier</span>
-                </button>
-              )}
             </div>
-          </div>
-
-          {/* AI Custom Article Generator */}
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-stone-900 to-purple-950/30 border border-purple-500/30 space-y-3 shadow-lg">
-            <div className="flex items-center gap-2 text-purple-300 text-xs font-bold uppercase tracking-wider">
-              <Bot className="w-4 h-4 text-purple-400" />
-              <span>Generar Entrada Personalizada con IA:</span>
-            </div>
-            <p className="text-xs text-stone-400">
-              ¿Tu profesor pidió un tema específico (ej: "Vodka de Centeno vs Patata", "Química de Congéneres")? Escríbelo aquí:
-            </p>
-            <input 
-              type="text"
-              id="ai-topic-input"
-              value={customTopic}
-              onChange={(e) => setCustomTopic(e.target.value)}
-              placeholder="Ej: Comparativa de filtración con carbón vs plata..."
-              className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-xs text-stone-200 focus:outline-none focus:border-purple-500"
-            />
-            <button
-              id="generate-ai-article-btn"
-              onClick={handleGenerateAiPost}
-              disabled={isGeneratingAi || !customTopic.trim()}
-              className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-40 text-white font-semibold text-xs transition-all shadow-md"
-            >
-              {isGeneratingAi ? (
-                <>
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  <span>Redactando con IA...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Generar Entrada para Blogger</span>
-                </>
-              )}
-            </button>
           </div>
 
         </div>
@@ -263,7 +168,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
               <button
                 id="blogger-view-html"
                 onClick={() => setActiveView('html')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   activeView === 'html'
                     ? 'bg-amber-500 text-stone-950 font-bold'
                     : 'text-stone-400 hover:text-stone-200'
@@ -276,7 +181,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
               <button
                 id="blogger-view-preview"
                 onClick={() => setActiveView('preview')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   activeView === 'preview'
                     ? 'bg-amber-500 text-stone-950 font-bold'
                     : 'text-stone-400 hover:text-stone-200'
@@ -289,7 +194,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
               <button
                 id="blogger-view-markdown"
                 onClick={() => setActiveView('markdown')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   activeView === 'markdown'
                     ? 'bg-amber-500 text-stone-950 font-bold'
                     : 'text-stone-400 hover:text-stone-200'
@@ -304,7 +209,7 @@ export const BloggerExporter: React.FC<BloggerExporterProps> = ({ initialArticle
             <button
               id="copy-blogger-code-btn"
               onClick={handleCopyCode}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-950/40 transition-all active:scale-95"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-950/40 transition-all active:scale-95 cursor-pointer"
             >
               {copied ? (
                 <>

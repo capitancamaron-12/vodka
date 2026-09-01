@@ -81,16 +81,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenS
             })}
           </nav>
 
-          {/* Right Action: AI Sommelier Button */}
+          {/* Right Action: Sommelier Button */}
           <div className="flex items-center gap-2">
             <button
               id="open-sommelier-modal-btn"
               onClick={onOpenSommelier}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold text-xs sm:text-sm hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-900/30 transition-all duration-200 active:scale-95"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold text-xs sm:text-sm hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-900/30 transition-all duration-200 active:scale-95 cursor-pointer"
             >
-              <Bot className="w-4 h-4 text-stone-950" />
-              <span className="hidden sm:inline">Sommelier IA</span>
-              <span className="sm:hidden">IA</span>
+              <Wine className="w-4 h-4 text-stone-950" />
+              <span className="hidden sm:inline">Guía Sommelier</span>
+              <span className="sm:hidden">Guía</span>
               <Sparkles className="w-3.5 h-3.5 text-stone-950 animate-pulse" />
             </button>
           </div>
