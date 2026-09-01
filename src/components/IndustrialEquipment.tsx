@@ -27,16 +27,17 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Eye,
-  ImageIcon
+  Cog,
+  Droplet,
+  Snowflake
 } from 'lucide-react';
 
 export const IndustrialEquipment: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedEquipmentId, setExpandedEquipmentId] = useState<string | null>(INDUSTRIAL_EQUIPMENT_LIST[0].id);
-  const [activeViewMode, setActiveViewMode] = useState<'cards' | 'gallery' | 'flow' | 'specs-table'>('cards');
-  const [lightboxEquipment, setLightboxEquipment] = useState<IndustrialEquipmentItem | null>(null);
+  const [activeViewMode, setActiveViewMode] = useState<'cards' | 'flow' | 'specs-table'>('cards');
+  const [selectedSpecEquipment, setSelectedSpecEquipment] = useState<IndustrialEquipmentItem | null>(null);
 
   const filteredEquipment = INDUSTRIAL_EQUIPMENT_LIST.filter(item => {
     const matchesCategory = selectedCategory === 'Todos' || item.category === selectedCategory;
@@ -66,18 +67,35 @@ export const IndustrialEquipment: React.FC = () => {
     }
   };
 
-  const handleNextLightbox = () => {
-    if (!lightboxEquipment) return;
-    const currentIndex = INDUSTRIAL_EQUIPMENT_LIST.findIndex(e => e.id === lightboxEquipment.id);
-    const nextIndex = (currentIndex + 1) % INDUSTRIAL_EQUIPMENT_LIST.length;
-    setLightboxEquipment(INDUSTRIAL_EQUIPMENT_LIST[nextIndex]);
+  const getEquipmentIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'Cog': return <Cog className="w-5 h-5 text-amber-400" />;
+      case 'Flame': return <Flame className="w-5 h-5 text-orange-400" />;
+      case 'Activity': return <Activity className="w-5 h-5 text-emerald-400" />;
+      case 'Layers': return <Layers className="w-5 h-5 text-amber-400" />;
+      case 'Droplet': return <Droplet className="w-5 h-5 text-cyan-400" />;
+      case 'Sliders': return <Sliders className="w-5 h-5 text-yellow-400" />;
+      case 'Sparkles': return <Sparkles className="w-5 h-5 text-amber-300" />;
+      case 'ShieldCheck': return <ShieldCheck className="w-5 h-5 text-cyan-300" />;
+      case 'Droplets': return <Droplets className="w-5 h-5 text-blue-400" />;
+      case 'Snowflake': return <Snowflake className="w-5 h-5 text-cyan-200" />;
+      case 'Box': return <Box className="w-5 h-5 text-emerald-400" />;
+      default: return <Factory className="w-5 h-5 text-amber-400" />;
+    }
   };
 
-  const handlePrevLightbox = () => {
-    if (!lightboxEquipment) return;
-    const currentIndex = INDUSTRIAL_EQUIPMENT_LIST.findIndex(e => e.id === lightboxEquipment.id);
+  const handleNextSpec = () => {
+    if (!selectedSpecEquipment) return;
+    const currentIndex = INDUSTRIAL_EQUIPMENT_LIST.findIndex(e => e.id === selectedSpecEquipment.id);
+    const nextIndex = (currentIndex + 1) % INDUSTRIAL_EQUIPMENT_LIST.length;
+    setSelectedSpecEquipment(INDUSTRIAL_EQUIPMENT_LIST[nextIndex]);
+  };
+
+  const handlePrevSpec = () => {
+    if (!selectedSpecEquipment) return;
+    const currentIndex = INDUSTRIAL_EQUIPMENT_LIST.findIndex(e => e.id === selectedSpecEquipment.id);
     const prevIndex = (currentIndex - 1 + INDUSTRIAL_EQUIPMENT_LIST.length) % INDUSTRIAL_EQUIPMENT_LIST.length;
-    setLightboxEquipment(INDUSTRIAL_EQUIPMENT_LIST[prevIndex]);
+    setSelectedSpecEquipment(INDUSTRIAL_EQUIPMENT_LIST[prevIndex]);
   };
 
   return (
@@ -95,7 +113,7 @@ export const IndustrialEquipment: React.FC = () => {
         </h1>
 
         <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-          Catálogo técnico de maquinaria industrial, columnas de rectificación continua, unidades de filtración molecular con carbón de abedul y líneas asépticas de embotellado con fotos e ilustraciones de alta resolución.
+          Catálogo técnico de maquinaria industrial, columnas de rectificación continua, unidades de filtración molecular con carbón de abedul y líneas asépticas de embotellado con especificaciones físico-químicas de planta.
         </p>
       </div>
 
@@ -177,7 +195,7 @@ export const IndustrialEquipment: React.FC = () => {
             <button
               id="view-mode-cards-btn"
               onClick={() => setActiveViewMode('cards')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                 activeViewMode === 'cards'
                   ? 'bg-amber-500 text-stone-950 font-bold shadow-sm'
                   : 'text-stone-400 hover:text-stone-200'
@@ -188,22 +206,9 @@ export const IndustrialEquipment: React.FC = () => {
             </button>
 
             <button
-              id="view-mode-gallery-btn"
-              onClick={() => setActiveViewMode('gallery')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                activeViewMode === 'gallery'
-                  ? 'bg-amber-500 text-stone-950 font-bold shadow-sm'
-                  : 'text-stone-400 hover:text-stone-200'
-              }`}
-            >
-              <ImageIcon className="w-3.5 h-3.5" />
-              <span>Galería Visual</span>
-            </button>
-
-            <button
               id="view-mode-flow-btn"
               onClick={() => setActiveViewMode('flow')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                 activeViewMode === 'flow'
                   ? 'bg-amber-500 text-stone-950 font-bold shadow-sm'
                   : 'text-stone-400 hover:text-stone-200'
@@ -216,7 +221,7 @@ export const IndustrialEquipment: React.FC = () => {
             <button
               id="view-mode-table-btn"
               onClick={() => setActiveViewMode('specs-table')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                 activeViewMode === 'specs-table'
                   ? 'bg-amber-500 text-stone-950 font-bold shadow-sm'
                   : 'text-stone-400 hover:text-stone-200'
@@ -253,7 +258,7 @@ export const IndustrialEquipment: React.FC = () => {
 
       </div>
 
-      {/* VIEW MODE 1: DETAILED TECHNICAL CARDS WITH PHOTO / ILLUSTRATION HEADER */}
+      {/* VIEW MODE 1: DETAILED TECHNICAL CARDS */}
       {activeViewMode === 'cards' && (
         <div className="space-y-6">
           {filteredEquipment.length === 0 ? (
@@ -291,29 +296,13 @@ export const IndustrialEquipment: React.FC = () => {
                   >
                     <div className="flex items-start sm:items-center gap-4">
                       
-                      {/* Thumbnail Preview */}
-                      {equipment.imageUrl ? (
-                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-stone-700/80 shrink-0 shadow-md group/thumb">
-                          <img 
-                            src={equipment.imageUrl} 
-                            alt={equipment.imageAlt || equipment.name}
-                            className="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-300"
-                            referrerPolicy="no-referrer"
-                          />
-                          <div className="absolute inset-0 bg-stone-950/30 flex items-center justify-center">
-                            <span className="text-[10px] font-bold font-mono-code text-amber-300 bg-stone-950/80 px-1.5 py-0.5 rounded">
-                              #{equipment.phaseNumber}
-                            </span>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="w-12 h-12 rounded-2xl bg-stone-950 border border-stone-800 flex flex-col items-center justify-center text-center shrink-0 shadow-inner">
-                          <span className="text-[10px] font-mono-code uppercase text-stone-500">Paso</span>
-                          <span className="text-base font-bold font-serif-title text-amber-400 leading-none">
-                            {String(equipment.phaseNumber).padStart(2, '0')}
-                          </span>
-                        </div>
-                      )}
+                      {/* Phase Step & Icon Badge */}
+                      <div className="w-12 h-12 rounded-2xl bg-stone-950 border border-stone-800 flex flex-col items-center justify-center text-center shrink-0 shadow-inner">
+                        <span className="text-[10px] font-mono-code uppercase text-stone-500">Paso</span>
+                        <span className="text-base font-bold font-serif-title text-amber-400 leading-none">
+                          {String(equipment.phaseNumber).padStart(2, '0')}
+                        </span>
+                      </div>
 
                       <div className="space-y-1">
                         <div className="flex flex-wrap items-center gap-2">
@@ -344,50 +333,6 @@ export const IndustrialEquipment: React.FC = () => {
                   {isExpanded && (
                     <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-stone-800/80 space-y-6 animate-fadeIn">
                       
-                      {/* Machinery High-Resolution Photo / Illustration Banner */}
-                      {equipment.imageUrl && (
-                        <div className="relative rounded-2xl overflow-hidden border border-stone-800 shadow-xl bg-stone-950 group">
-                          <div className="aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden relative">
-                            <img 
-                              src={equipment.imageUrl} 
-                              alt={equipment.imageAlt || equipment.name}
-                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                              referrerPolicy="no-referrer"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent" />
-                          </div>
-
-                          {/* Image Overlay Bar */}
-                          <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3 bg-gradient-to-t from-stone-950 via-stone-950/90 to-transparent">
-                            <div className="space-y-1">
-                              <div className="flex items-center gap-2">
-                                <span className="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-mono-code font-bold uppercase">
-                                  Ilustración Técnica • {equipment.stageName}
-                                </span>
-                                <span className="text-[11px] text-stone-400">
-                                  {equipment.material.split(' ')[0]} {equipment.material.split(' ')[1]}
-                                </span>
-                              </div>
-                              <p className="text-xs sm:text-sm text-stone-200 font-medium">
-                                {equipment.imageAlt || equipment.name}
-                              </p>
-                            </div>
-
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setLightboxEquipment(equipment);
-                              }}
-                              className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-900/90 hover:bg-amber-500 hover:text-stone-950 border border-stone-700 text-stone-200 text-xs font-semibold transition-all cursor-pointer shadow-md"
-                            >
-                              <Maximize2 className="w-3.5 h-3.5" />
-                              <span>Ver en Pantalla Completa</span>
-                            </button>
-                          </div>
-                        </div>
-                      )}
-
                       {/* Summary Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         
@@ -530,6 +475,21 @@ export const IndustrialEquipment: React.FC = () => {
 
                       </div>
 
+                      {/* Action Bar */}
+                      <div className="pt-2 flex justify-end">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedSpecEquipment(equipment);
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-stone-950 hover:bg-amber-500 hover:text-stone-950 border border-stone-700 text-stone-200 text-xs font-semibold transition-all cursor-pointer"
+                        >
+                          <Maximize2 className="w-3.5 h-3.5" />
+                          <span>Abrir Ficha Resumen Completa</span>
+                        </button>
+                      </div>
+
                     </div>
                   )}
 
@@ -540,103 +500,7 @@ export const IndustrialEquipment: React.FC = () => {
         </div>
       )}
 
-      {/* VIEW MODE 2: VISUAL GALLERY WITH HIGH-RES INDUSTRIAL PHOTOS & BLUEPRINTS */}
-      {activeViewMode === 'gallery' && (
-        <div className="space-y-6">
-          <div className="p-6 rounded-3xl bg-stone-900/80 border border-stone-800 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-serif-title font-bold text-stone-100">
-                Galería Visual de Equipos & Maquinaria de Planta
-              </h3>
-              <p className="text-xs text-stone-400">
-                Explora las ilustraciones y fotografías de la infraestructura de molienda, cocción, destilación continua, filtración de carbón y envasado aséptico.
-              </p>
-            </div>
-            <span className="text-xs text-amber-300 font-mono-code bg-stone-950 px-3 py-1.5 rounded-xl border border-stone-800">
-              {filteredEquipment.length} Equipos en Catálogo
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredEquipment.map((equipment) => (
-              <div 
-                key={equipment.id}
-                onClick={() => setLightboxEquipment(equipment)}
-                className="group rounded-3xl bg-stone-900/90 border border-stone-800 hover:border-amber-500/60 overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-amber-950/30 transition-all duration-300 flex flex-col"
-              >
-                {/* Image Container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-stone-950">
-                  {equipment.imageUrl ? (
-                    <img 
-                      src={equipment.imageUrl} 
-                      alt={equipment.imageAlt || equipment.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-stone-950 text-stone-600">
-                      <Factory className="w-12 h-12" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent" />
-                  
-                  {/* Category & Step Badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                    <span className="w-7 h-7 rounded-lg bg-stone-950/90 border border-stone-700 text-amber-300 font-mono-code font-bold text-xs flex items-center justify-center shadow">
-                      #{equipment.phaseNumber}
-                    </span>
-                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border backdrop-blur-sm ${getCategoryBadgeClass(equipment.category)}`}>
-                      {equipment.category}
-                    </span>
-                  </div>
-
-                  {/* Zoom Action Icon */}
-                  <div className="absolute top-3 right-3 w-8 h-8 rounded-xl bg-stone-950/80 border border-stone-700 text-stone-300 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Eye className="w-4 h-4 text-amber-300" />
-                  </div>
-
-                  {/* Temperature / Pressure Badge */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono-code text-stone-300">
-                    <span className="bg-stone-950/80 px-2 py-0.5 rounded border border-stone-800 text-amber-300">
-                      {equipment.operatingParameters.temperature}
-                    </span>
-                    <span className="bg-stone-950/80 px-2 py-0.5 rounded border border-stone-800 text-cyan-300">
-                      {equipment.operatingParameters.pressure}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Content */}
-                <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
-                  <div className="space-y-1.5">
-                    <div className="text-[11px] font-mono-code text-stone-500 uppercase">
-                      {equipment.stageName}
-                    </div>
-                    <h4 className="text-base font-serif-title font-bold text-stone-100 group-hover:text-amber-300 transition-colors line-clamp-2">
-                      {equipment.name}
-                    </h4>
-                    <p className="text-xs text-stone-300 line-clamp-2 leading-relaxed">
-                      {equipment.functionDescription}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-stone-800/80 flex items-center justify-between text-xs">
-                    <span className="text-stone-400 font-mono-code text-[11px]">
-                      {equipment.capacityRange}
-                    </span>
-                    <span className="text-amber-400 font-semibold group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
-                      <span>Ver Detalles</span>
-                      <Maximize2 className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* VIEW MODE 3: INTERACTIVE PROCESS FLOW DIAGRAM */}
+      {/* VIEW MODE 2: INTERACTIVE PROCESS FLOW DIAGRAM */}
       {activeViewMode === 'flow' && (
         <div className="p-6 rounded-3xl bg-stone-900/90 border border-stone-800 space-y-8">
           
@@ -660,23 +524,10 @@ export const IndustrialEquipment: React.FC = () => {
                   {item.phaseNumber}
                 </div>
 
-                {/* Optional Miniature Image */}
-                {item.imageUrl && (
-                  <div 
-                    onClick={() => setLightboxEquipment(item)}
-                    className="w-full md:w-36 h-24 rounded-xl overflow-hidden border border-stone-800 shrink-0 cursor-pointer relative group/img shadow"
-                  >
-                    <img 
-                      src={item.imageUrl} 
-                      alt={item.name} 
-                      className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-300"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-stone-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                      <Maximize2 className="w-4 h-4 text-amber-300" />
-                    </div>
-                  </div>
-                )}
+                {/* Icon Box */}
+                <div className="w-12 h-12 rounded-2xl bg-stone-900 border border-stone-800 flex items-center justify-center shrink-0">
+                  {getEquipmentIcon(item.imagePlaceholderIcon)}
+                </div>
 
                 <div className="space-y-3 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
@@ -696,10 +547,19 @@ export const IndustrialEquipment: React.FC = () => {
                     {item.functionDescription}
                   </p>
 
-                  <div className="pt-2 flex flex-wrap items-center gap-4 text-[11px] text-stone-400 border-t border-stone-900">
-                    <div><strong>Material:</strong> {item.material.split(' ')[0]} {item.material.split(' ')[1]}</div>
-                    <div><strong>Capacidad:</strong> {item.capacityRange}</div>
-                    <div><strong>Presión:</strong> {item.operatingParameters.pressure}</div>
+                  <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-[11px] text-stone-400 border-t border-stone-900">
+                    <div className="flex flex-wrap items-center gap-4">
+                      <div><strong>Material:</strong> {item.material.split(' ')[0]} {item.material.split(' ')[1]}</div>
+                      <div><strong>Capacidad:</strong> {item.capacityRange}</div>
+                      <div><strong>Presión:</strong> {item.operatingParameters.pressure}</div>
+                    </div>
+                    <button
+                      onClick={() => setSelectedSpecEquipment(item)}
+                      className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Ver Ficha</span>
+                      <Maximize2 className="w-3 h-3" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -709,7 +569,7 @@ export const IndustrialEquipment: React.FC = () => {
         </div>
       )}
 
-      {/* VIEW MODE 4: FULL TECHNICAL COMPARISON TABLE */}
+      {/* VIEW MODE 3: FULL TECHNICAL COMPARISON TABLE */}
       {activeViewMode === 'specs-table' && (
         <div className="p-6 rounded-3xl bg-stone-900/90 border border-stone-800 space-y-6 shadow-2xl">
           
@@ -732,40 +592,20 @@ export const IndustrialEquipment: React.FC = () => {
               <thead className="bg-stone-950 text-stone-300 font-semibold border-b border-stone-800 uppercase tracking-wider text-[11px]">
                 <tr>
                   <th className="p-3.5">#</th>
-                  <th className="p-3.5">Vista</th>
                   <th className="p-3.5">Equipo Industrial</th>
                   <th className="p-3.5">Categoría / Fase</th>
                   <th className="p-3.5">Material de Contacto</th>
                   <th className="p-3.5">Temp. Trabajo</th>
                   <th className="p-3.5">Presión</th>
                   <th className="p-3.5">Capacidad / Rendimiento</th>
+                  <th className="p-3.5 text-right">Acción</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-800/60 bg-stone-900/40 text-stone-300">
                 {INDUSTRIAL_EQUIPMENT_LIST.map((eq) => (
                   <tr key={eq.id} className="hover:bg-stone-800/40 transition-colors">
                     <td className="p-3.5 font-mono-code font-bold text-amber-400">{eq.phaseNumber}</td>
-                    <td className="p-2">
-                      {eq.imageUrl ? (
-                        <button
-                          onClick={() => setLightboxEquipment(eq)}
-                          className="w-10 h-10 rounded-lg overflow-hidden border border-stone-700 cursor-pointer block hover:scale-105 transition-transform"
-                          title="Ampliar ilustración"
-                        >
-                          <img 
-                            src={eq.imageUrl} 
-                            alt={eq.name} 
-                            className="w-full h-full object-cover"
-                            referrerPolicy="no-referrer"
-                          />
-                        </button>
-                      ) : (
-                        <div className="w-10 h-10 rounded-lg bg-stone-950 border border-stone-800 flex items-center justify-center text-stone-600">
-                          <Factory className="w-4 h-4" />
-                        </div>
-                      )}
-                    </td>
-                    <td className="p-3.5 font-medium text-stone-100 max-w-[200px]">
+                    <td className="p-3.5 font-medium text-stone-100 max-w-[220px]">
                       <div>{eq.name}</div>
                       <div className="text-[10px] text-stone-500">{eq.stageName}</div>
                     </td>
@@ -786,6 +626,14 @@ export const IndustrialEquipment: React.FC = () => {
                     <td className="p-3.5 font-mono-code text-amber-300">
                       {eq.capacityRange}
                     </td>
+                    <td className="p-3.5 text-right">
+                      <button
+                        onClick={() => setSelectedSpecEquipment(eq)}
+                        className="px-2.5 py-1 rounded-lg bg-stone-950 hover:bg-amber-500 hover:text-stone-950 border border-stone-700 text-stone-300 text-[11px] font-medium transition-colors cursor-pointer"
+                      >
+                        Detalles
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -795,29 +643,29 @@ export const IndustrialEquipment: React.FC = () => {
         </div>
       )}
 
-      {/* FULLSCREEN LIGHTBOX / TECHNICAL SPEC SHEET MODAL */}
-      {lightboxEquipment && (
+      {/* TECHNICAL SPEC SHEET MODAL */}
+      {selectedSpecEquipment && (
         <div 
           className="fixed inset-0 z-50 bg-stone-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fadeIn"
-          onClick={() => setLightboxEquipment(null)}
+          onClick={() => setSelectedSpecEquipment(null)}
         >
           <div 
-            className="relative w-full max-w-5xl rounded-3xl bg-stone-900 border border-amber-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[90vh] my-auto"
+            className="relative w-full max-w-4xl rounded-3xl bg-stone-900 border border-amber-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[90vh] my-auto"
             onClick={(e) => e.stopPropagation()}
           >
             
-            {/* Lightbox Navigation & Close Header */}
+            {/* Spec Sheet Navigation & Close Header */}
             <div className="p-4 sm:p-5 bg-stone-950 border-b border-stone-800 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono-code font-bold flex items-center justify-center text-xs">
-                  #{lightboxEquipment.phaseNumber}
+                  #{selectedSpecEquipment.phaseNumber}
                 </span>
                 <div>
                   <h3 className="text-sm sm:text-base font-serif-title font-bold text-stone-100">
-                    {lightboxEquipment.name}
+                    {selectedSpecEquipment.name}
                   </h3>
                   <p className="text-[11px] text-stone-400">
-                    {lightboxEquipment.category} • {lightboxEquipment.stageName}
+                    {selectedSpecEquipment.category} • {selectedSpecEquipment.stageName}
                   </p>
                 </div>
               </div>
@@ -825,7 +673,7 @@ export const IndustrialEquipment: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={handlePrevLightbox}
+                  onClick={handlePrevSpec}
                   className="w-8 h-8 rounded-xl bg-stone-900 border border-stone-800 text-stone-300 hover:text-stone-100 hover:border-stone-700 flex items-center justify-center cursor-pointer transition-colors"
                   title="Anterior equipo"
                 >
@@ -833,7 +681,7 @@ export const IndustrialEquipment: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={handleNextLightbox}
+                  onClick={handleNextSpec}
                   className="w-8 h-8 rounded-xl bg-stone-900 border border-stone-800 text-stone-300 hover:text-stone-100 hover:border-stone-700 flex items-center justify-center cursor-pointer transition-colors"
                   title="Siguiente equipo"
                 >
@@ -841,7 +689,7 @@ export const IndustrialEquipment: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setLightboxEquipment(null)}
+                  onClick={() => setSelectedSpecEquipment(null)}
                   className="w-8 h-8 rounded-xl bg-stone-900 border border-stone-800 text-stone-400 hover:text-stone-100 hover:bg-stone-800 flex items-center justify-center cursor-pointer transition-colors"
                 >
                   <X className="w-4 h-4" />
@@ -849,31 +697,9 @@ export const IndustrialEquipment: React.FC = () => {
               </div>
             </div>
 
-            {/* Modal Body: High Res Image + Fast Specs Overview */}
+            {/* Modal Body: Fast Specs Overview */}
             <div className="overflow-y-auto p-4 sm:p-6 space-y-6">
               
-              {/* Main Photo / Illustration View */}
-              {lightboxEquipment.imageUrl && (
-                <div className="rounded-2xl overflow-hidden border border-stone-800 bg-stone-950 relative">
-                  <div className="aspect-[16/9] w-full">
-                    <img 
-                      src={lightboxEquipment.imageUrl} 
-                      alt={lightboxEquipment.imageAlt || lightboxEquipment.name}
-                      className="w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  <div className="p-3 bg-stone-950/90 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-2 text-xs text-stone-300">
-                    <span className="font-medium text-amber-300">
-                      {lightboxEquipment.imageAlt || lightboxEquipment.name}
-                    </span>
-                    <span className="font-mono-code text-[11px] text-stone-400">
-                      Capacidad: {lightboxEquipment.capacityRange}
-                    </span>
-                  </div>
-                </div>
-              )}
-
               {/* Fast Technical Summary */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
@@ -883,7 +709,7 @@ export const IndustrialEquipment: React.FC = () => {
                     <span>Función Industrial & Destilería</span>
                   </h4>
                   <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-                    {lightboxEquipment.functionDescription}
+                    {selectedSpecEquipment.functionDescription}
                   </p>
                 </div>
 
@@ -893,7 +719,7 @@ export const IndustrialEquipment: React.FC = () => {
                     <span>Principio Físico / Químico</span>
                   </h4>
                   <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-                    {lightboxEquipment.workingPrinciple}
+                    {selectedSpecEquipment.workingPrinciple}
                   </p>
                 </div>
 
@@ -907,7 +733,7 @@ export const IndustrialEquipment: React.FC = () => {
                     <span>Temperatura:</span>
                   </div>
                   <div className="font-mono-code font-bold text-stone-100">
-                    {lightboxEquipment.operatingParameters.temperature}
+                    {selectedSpecEquipment.operatingParameters.temperature}
                   </div>
                 </div>
 
@@ -917,7 +743,7 @@ export const IndustrialEquipment: React.FC = () => {
                     <span>Presión:</span>
                   </div>
                   <div className="font-mono-code font-bold text-stone-100">
-                    {lightboxEquipment.operatingParameters.pressure}
+                    {selectedSpecEquipment.operatingParameters.pressure}
                   </div>
                 </div>
 
@@ -927,7 +753,7 @@ export const IndustrialEquipment: React.FC = () => {
                     <span>Salida / Pureza:</span>
                   </div>
                   <div className="font-mono-code font-bold text-amber-300">
-                    {lightboxEquipment.operatingParameters.targetAbv || lightboxEquipment.operatingParameters.throughputOrYield || 'N/A'}
+                    {selectedSpecEquipment.operatingParameters.targetAbv || selectedSpecEquipment.operatingParameters.throughputOrYield || 'N/A'}
                   </div>
                 </div>
               </div>
@@ -939,10 +765,28 @@ export const IndustrialEquipment: React.FC = () => {
                   <span>Componentes Clave e Instrumentación</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {lightboxEquipment.keyComponents.map((comp, idx) => (
+                  {selectedSpecEquipment.keyComponents.map((comp, idx) => (
                     <div key={idx} className="text-xs text-stone-300 flex items-start gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{comp}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Flow Stages */}
+              <div className="p-4 rounded-2xl bg-stone-950 border border-stone-800 space-y-2">
+                <h4 className="text-xs font-semibold text-stone-200 uppercase tracking-wider flex items-center gap-1.5">
+                  <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Etapas Secuenciales de Operación</span>
+                </h4>
+                <div className="space-y-1.5">
+                  {selectedSpecEquipment.industrialDiagramDetails.map((detail, idx) => (
+                    <div key={idx} className="text-xs text-stone-300 flex items-start gap-2">
+                      <span className="w-4 h-4 rounded-full bg-amber-500/20 text-amber-400 font-mono-code text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                        {idx + 1}
+                      </span>
+                      <span>{detail}</span>
                     </div>
                   ))}
                 </div>
@@ -953,14 +797,14 @@ export const IndustrialEquipment: React.FC = () => {
             {/* Modal Footer */}
             <div className="p-4 bg-stone-950 border-t border-stone-800 flex items-center justify-between text-xs text-stone-400">
               <span className="font-mono-code">
-                Material: {lightboxEquipment.material}
+                Material: {selectedSpecEquipment.material}
               </span>
               <button
                 type="button"
-                onClick={() => setLightboxEquipment(null)}
+                onClick={() => setSelectedSpecEquipment(null)}
                 className="px-4 py-1.5 rounded-xl bg-amber-500 text-stone-950 font-bold hover:bg-amber-400 transition-colors cursor-pointer"
               >
-                Cerrar Visor
+                Cerrar Ficha
               </button>
             </div>
 

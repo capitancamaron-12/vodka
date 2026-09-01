@@ -1,9 +1,4 @@
 import { IndustrialEquipmentItem } from '../types';
-import millingImg from '../assets/images/vodka_industrial_milling_1788232927724.jpg';
-import fermentersImg from '../assets/images/vodka_industrial_fermenters_1788232893026.jpg';
-import columnStillImg from '../assets/images/vodka_industrial_column_still_1788232879527.jpg';
-import filtrationImg from '../assets/images/vodka_industrial_filtration_1788232904913.jpg';
-import bottlingImg from '../assets/images/vodka_industrial_bottling_1788232916589.jpg';
 
 export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
   {
@@ -35,8 +30,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Transporte por tornillo sinfín / soplador neumático hacia silos de pesaje'
     ],
     imagePlaceholderIcon: 'Cog',
-    imageUrl: millingImg,
-    imageAlt: 'Molino industrial de martillos y tolva de alimentación de grano para vodka',
     academicImportance: 'Una granulometría homogénea asegura que el agua y las enzimas hidrolíticas penetren eficazmente en la cocción sin crear grumos insolubles.'
   },
   {
@@ -68,8 +61,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Enfriamiento flash a 30°C mediante intercambiador de espiral/placas'
     ],
     imagePlaceholderIcon: 'Flame',
-    imageUrl: fermentersImg,
-    imageAlt: 'Tanque de maceración y cocedor continuo en acero inoxidable sanitario',
     academicImportance: 'Determina el extracto fermentable (grados Brix / densidad original) y evita la producción excesiva de dextrinas no fermentables.'
   },
   {
@@ -102,8 +93,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Sedimentación y purga de levadura por el vértice cónico'
     ],
     imagePlaceholderIcon: 'Activity',
-    imageUrl: fermentersImg,
-    imageAlt: 'Batería de tanques fermentadores cilíndrico-cónicos termorregulados',
     academicImportance: 'La limpieza de la fermentación define la carga inicial de congéneres (ésteres, aldehídos, alcoholes superiores) que la destilería deberá purificar.'
   },
   {
@@ -135,8 +124,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Salida superior de vapores alcohólicos concentrados hacia la siguiente columna'
     ],
     imagePlaceholderIcon: 'Layers',
-    imageUrl: columnStillImg,
-    imageAlt: 'Columna de agotamiento primario (Wash Column) para extracción continua de etanol',
     academicImportance: 'Es el equipo con mayor consumo térmico de la destilería. Su eficiencia define la tasa de recuperación total de alcohol del mosto.'
   },
   {
@@ -168,8 +155,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Extracción de alcohol purificado y desengrasado por la base'
     ],
     imagePlaceholderIcon: 'Droplet',
-    imageUrl: columnStillImg,
-    imageAlt: 'Columna de hidroselección y extracción con platos de burbujeo de cobre',
     academicImportance: 'Es el secreto tecnológico de los vodkas ultra-premium. Permite eliminar impurezas que una columna convencional no puede separar debido a azeótropos binarios.'
   },
   {
@@ -201,8 +186,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Extracción de alcohol neutro ultrapuro (96.4% ABV) por plato lateral'
     ],
     imagePlaceholderIcon: 'Sliders',
-    imageUrl: columnStillImg,
-    imageAlt: 'Torre de rectificación industrial multiplato de 40 metros para alcohol neutro',
     academicImportance: 'Alcanza el grado de pureza química exigido por la normativa europea (Reglamento UE 2019/787: máximo 30 g de congéneres por hectolitro de alcohol puro).'
   },
   {
@@ -234,8 +217,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Drenaje inferior de Alcohol Grado Alpha / Lux (Pureza > 99.9% base alcohol)'
     ],
     imagePlaceholderIcon: 'Sparkles',
-    imageUrl: columnStillImg,
-    imageAlt: 'Columna desmetilizadora con empaque estructurado Sulzer para purificación de metanol',
     academicImportance: 'Garantiza la ausencia de dolores de cabeza inducidos por metanol o aldehídos agresivos, cumpliendo los estándares de vodka medicinal y premium.'
   },
   {
@@ -267,8 +248,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Salida superior hacia filtros pulidores de cuarzo o cartuchos de polipropileno'
     ],
     imagePlaceholderIcon: 'ShieldCheck',
-    imageUrl: filtrationImg,
-    imageAlt: 'Batería industrial de columnas de carbón activado de abedul siberiano',
     academicImportance: 'Inventado por Johann Tobias Lowitz en 1785 en San Petersburgo; es el proceso definitorio que transforma un aguardiente neutro en un verdadero vodka suave.'
   },
   {
@@ -300,8 +279,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Almacenamiento en tanque aséptico de agua con manto de nitrógeno'
     ],
     imagePlaceholderIcon: 'Droplets',
-    imageUrl: filtrationImg,
-    imageAlt: 'Planta de desmineralización de agua por ósmosis inversa y pulidor EDI',
     academicImportance: 'Dado que el vodka al 40% ABV está compuesto por un 60% de agua, la pureza y balance mineral de este equipo define directamente la sedosidad y brillo cristalino del producto.'
   },
   {
@@ -333,8 +310,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Filtración en frío a través de módulos lenticulares de celulosa estéril'
     ],
     imagePlaceholderIcon: 'Snowflake',
-    imageUrl: bottlingImg,
-    imageAlt: 'Tanque de matrimonio con camisa criogénica y filtración lenticular en frío',
     academicImportance: 'Garantiza la estabilidad coloidal del vodka (limpidez perfecta a temperaturas bajo cero) y permite que los enlaces de puente de hidrógeno agua-etanol alcancen el equilibrio termodinámico.'
   },
   {
@@ -368,8 +343,6 @@ export const INDUSTRIAL_EQUIPMENT_LIST: IndustrialEquipmentItem[] = [
       'Inspección por visión artificial de nivel de llenado y código de lote'
     ],
     imagePlaceholderIcon: 'Box',
-    imageUrl: bottlingImg,
-    imageAlt: 'Línea monoblock de embotellado rotativo aséptico con purga de nitrógeno',
     academicImportance: 'La purga con gas nitrógeno evita la oxidación de los delicados compuestos volátiles en botella, asegurando una vida útil ilimitada sin degradación organoléptica.'
   }
 ];
