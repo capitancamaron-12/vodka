@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TabType } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
@@ -11,8 +11,45 @@ import {
   Layers
 } from 'lucide-react';
 
+const VALID_TABS: TabType[] = ['blog', 'process', 'presentation', 'equipment'];
+
+function getInitialTab(): TabType {
+  if (typeof window !== 'undefined') {
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    if (VALID_TABS.includes(hash as TabType)) {
+      return hash as TabType;
+    }
+    const path = window.location.pathname.toLowerCase();
+    for (const tab of VALID_TABS) {
+      if (path.endsWith(`/${tab}`) || path.endsWith(`/${tab}/`)) {
+        return tab;
+      }
+    }
+  }
+  return 'blog';
+}
+
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabType>('blog');
+  const [activeTab, setActiveTabState] = useState<TabType>(getInitialTab);
+
+  const setActiveTab = (tab: TabType) => {
+    setActiveTabState(tab);
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `#${tab}`);
+    }
+  };
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (VALID_TABS.includes(hash as TabType)) {
+        setActiveTabState(hash as TabType);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
