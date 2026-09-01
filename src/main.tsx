@@ -1,26 +1,64 @@
 // Ensure fetch can be reassigned or referenced without throwing if the host environment defines a getter-only fetch property
 (function() {
-  try {
-    if (typeof window !== 'undefined') {
-      const originalFetch = window.fetch;
-      let descriptor = Object.getOwnPropertyDescriptor(window, 'fetch');
-      if (!descriptor) {
-        descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), 'fetch');
-      }
-      if (descriptor && descriptor.get && !descriptor.set) {
-        let activeFetch = originalFetch || (descriptor.get ? descriptor.get.call(window) : undefined);
-        Object.defineProperty(window, 'fetch', {
-          get: () => activeFetch,
-          set: (fn) => {
-            activeFetch = fn;
-          },
+  function makeWritable(obj: any, prop: string) {
+    if (!obj) return;
+    try {
+      const currentVal = obj[prop];
+      try {
+        Object.defineProperty(obj, prop, {
+          value: currentVal,
+          writable: true,
+          configurable: true,
+          enumerable: true,
+        });
+      } catch {
+        let val = currentVal;
+        Object.defineProperty(obj, prop, {
+          get: () => val,
+          set: (newVal) => { val = newVal; },
           configurable: true,
           enumerable: true,
         });
       }
+    } catch {}
+  }
+
+  function patchChain(target: any, prop: string) {
+    if (!target) return;
+    let curr = target;
+    while (curr) {
+      try {
+        const desc = Object.getOwnPropertyDescriptor(curr, prop);
+        if (desc && desc.get && !desc.set) {
+          let fn = curr[prop];
+          Object.defineProperty(curr, prop, {
+            get: () => fn,
+            set: (v) => { fn = v; },
+            configurable: true,
+            enumerable: true,
+          });
+        }
+      } catch {}
+      try {
+        curr = Object.getPrototypeOf(curr);
+      } catch {
+        break;
+      }
     }
-  } catch {
-    // Ignore if not permitted
+    makeWritable(target, prop);
+  }
+
+  if (typeof window !== 'undefined') {
+    patchChain(window, 'fetch');
+    if (typeof Window !== 'undefined' && Window.prototype) {
+      patchChain(Window.prototype, 'fetch');
+    }
+  }
+  if (typeof globalThis !== 'undefined') {
+    patchChain(globalThis, 'fetch');
+  }
+  if (typeof self !== 'undefined') {
+    patchChain(self, 'fetch');
   }
 })();
 
