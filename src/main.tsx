@@ -1,65 +1,63 @@
 // Ensure fetch can be reassigned or referenced without throwing if the host environment defines a getter-only fetch property
 (function() {
-  function makeWritable(obj: any, prop: string) {
-    if (!obj) return;
+  try {
+    const globalScope: any = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : {};
+    let activeFetch: any;
     try {
-      const currentVal = obj[prop];
+      activeFetch = globalScope.fetch;
+    } catch {}
+
+    function defineSafeAccessor(target: any, prop: string) {
+      if (!target) return;
       try {
-        Object.defineProperty(obj, prop, {
-          value: currentVal,
-          writable: true,
+        const desc = Object.getOwnPropertyDescriptor(target, prop);
+        if (desc && desc.writable && !desc.get) return;
+
+        Object.defineProperty(target, prop, {
+          get: () => activeFetch,
+          set: (fn) => {
+            activeFetch = fn;
+          },
           configurable: true,
           enumerable: true,
         });
       } catch {
-        let val = currentVal;
-        Object.defineProperty(obj, prop, {
-          get: () => val,
-          set: (newVal) => { val = newVal; },
-          configurable: true,
-          enumerable: true,
-        });
-      }
-    } catch {}
-  }
-
-  function patchChain(target: any, prop: string) {
-    if (!target) return;
-    let curr = target;
-    while (curr) {
-      try {
-        const desc = Object.getOwnPropertyDescriptor(curr, prop);
-        if (desc && desc.get && !desc.set) {
-          let fn = curr[prop];
-          Object.defineProperty(curr, prop, {
-            get: () => fn,
-            set: (v) => { fn = v; },
+        try {
+          Object.defineProperty(target, prop, {
+            value: activeFetch,
+            writable: true,
             configurable: true,
             enumerable: true,
           });
-        }
-      } catch {}
-      try {
-        curr = Object.getPrototypeOf(curr);
-      } catch {
-        break;
+        } catch {}
       }
     }
-    makeWritable(target, prop);
-  }
 
-  if (typeof window !== 'undefined') {
-    patchChain(window, 'fetch');
-    if (typeof Window !== 'undefined' && Window.prototype) {
-      patchChain(Window.prototype, 'fetch');
+    const targets: any[] = [
+      typeof window !== 'undefined' ? window : null,
+      typeof globalThis !== 'undefined' ? globalThis : null,
+      typeof self !== 'undefined' ? self : null,
+      typeof Window !== 'undefined' && (Window as any).prototype ? (Window as any).prototype : null,
+    ];
+
+    if (typeof window !== 'undefined') {
+      let p: any = window;
+      while (p) {
+        targets.push(p);
+        try {
+          p = Object.getPrototypeOf(p);
+        } catch {
+          break;
+        }
+      }
     }
-  }
-  if (typeof globalThis !== 'undefined') {
-    patchChain(globalThis, 'fetch');
-  }
-  if (typeof self !== 'undefined') {
-    patchChain(self, 'fetch');
-  }
+
+    for (let i = targets.length - 1; i >= 0; i--) {
+      if (targets[i]) {
+        defineSafeAccessor(targets[i], 'fetch');
+      }
+    }
+  } catch {}
 })();
 
 import {StrictMode} from 'react';
