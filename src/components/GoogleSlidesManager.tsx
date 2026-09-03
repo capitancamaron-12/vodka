@@ -38,7 +38,7 @@ export const GoogleSlidesManager: React.FC = () => {
   const [isLoadingDrive, setIsLoadingDrive] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
-  const [customDeckTitle, setCustomDeckTitle] = useState<string>('Presentación del Vodka - David Taylor, Elvin Martinez & Sahiry Villareal');
+  const [customDeckTitle, setCustomDeckTitle] = useState<string>('Presentación del Vodka - David Taylor, Edwin Martínez & Servillano Real');
 
   useEffect(() => {
     const unsubscribe = initAuth(
@@ -145,7 +145,7 @@ export const GoogleSlidesManager: React.FC = () => {
               Crea y Exporta Diapositivas en Google Slides
             </h2>
             <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-              Exporta las 7 diapositivas académicas elaboradas por David Taylor, Elvin Martinez y Sahiry Villareal (con notas del orador, estadísticas e hitos históricos) directamente a tu cuenta de Google Drive con un solo clic.
+              Exporta las 7 diapositivas académicas elaboradas por David Taylor, Edwin Martínez y Servillano Real (con notas del orador, estadísticas e hitos históricos) directamente a tu cuenta de Google Drive con un solo clic.
             </p>
           </div>
 

@@ -98,7 +98,7 @@ export default function App() {
               </div>
               <div>
                 <span className="font-display font-bold text-sm tracking-wider text-stone-200">
-                  DAVID TAYLOR • ELVIN MARTINEZ • SAHIRY VILLAREAL
+                  DAVID TAYLOR • EDWIN MARTÍNEZ • SERVILLANO REAL
                 </span>
                 <p className="text-[11px] text-stone-500">
                   Presentación de Clase &amp; Proyecto Académico sobre el Vodka
@@ -137,7 +137,7 @@ export default function App() {
 
           <div className="pt-4 border-t border-stone-900 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-stone-500">
             <p>
-              Presentación elaborada por <strong className="text-stone-300">David Taylor</strong>, <strong className="text-stone-300">Elvin Martinez</strong> y <strong className="text-stone-300">Sahiry Villareal</strong>.
+              Presentación elaborada por <strong className="text-stone-300">David Taylor</strong>, <strong className="text-stone-300">Edwin Martínez</strong> y <strong className="text-stone-300">Servillano Real</strong>.
             </p>
             <div className="flex items-center gap-2">
               <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
