@@ -38,7 +38,7 @@ export const GoogleSlidesManager: React.FC = () => {
   const [isLoadingDrive, setIsLoadingDrive] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
-  const [customDeckTitle, setCustomDeckTitle] = useState<string>('Presentación del Vodka - David Taylor, Elvin Martínez & Sahiry Villareal');
+  const [customDeckTitle, setCustomDeckTitle] = useState<string>('Presentación del Vodka - David Taylor, Elvin Martinez & Sahiry Villareal');
 
   useEffect(() => {
     const unsubscribe = initAuth(

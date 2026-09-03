@@ -41,7 +41,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             </h1>
 
             <p className="text-stone-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-              Proyecto presentación académica sobre la elaboración química casera de vodka. <strong className="text-amber-300">David Taylor</strong>, <strong className="text-amber-300">Elvin Martínez</strong>, <strong className="text-amber-300">Sahiry Villareal</strong>.
+              Proyecto presentación académica sobre la elaboración química casera de vodka. <strong className="text-amber-300">David Taylor</strong>, <strong className="text-amber-300">Elvin Martinez</strong>, <strong className="text-amber-300">Sahiry Villareal</strong>.
             </p>
 
             {/* Quick Action Buttons */}

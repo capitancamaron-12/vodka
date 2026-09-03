@@ -422,14 +422,14 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
     section: 'Introducción General',
     badgeText: 'Portada Académica',
     bullets: [
-      'Presentación académica elaborada por: David Taylor, Elvin Martínez y Sahiry Villareal.',
+      'Presentación académica elaborada por: David Taylor, Elvin Martinez y Sahiry Villareal.',
       'El destilado más consumido y versátil del planeta.',
       'Definición legal: Mínimo 37.5% ABV (UE) o 40% ABV (Estándar Internacional).',
       'Objetivo de la sesión: Desmitificar la falsa creencia de que "todos los vodkas son iguales y no tienen sabor".'
     ],
-    speakerNotes: 'Iniciar presentándonos a la clase: David Taylor, Edwin Martínez y Servillano Real. Destacar que el vodka no es un simple alcohol blanco, sino una obra maestra de ingeniería termodinámica y tradición cultural de más de 600 años.',
+    speakerNotes: 'Iniciar presentándonos a la clase: David Taylor, Elvin Martinez y Sahiry Villareal. Destacar que el vodka no es un simple alcohol blanco, sino una obra maestra de ingeniería termodinámica y tradición cultural de más de 600 años.',
     iconName: 'GraduationCap',
-    quote: '"El vodka es agua con alma ardiente." — Presentación por David Taylor, Edwin Martínez y Servillano Real',
+    quote: '"El vodka es agua con alma ardiente." — Presentación por David Taylor, Elvin Martinez y Sahiry Villareal',
     stat: { value: '600+', label: 'Años de historia documentada' }
   },
   {
