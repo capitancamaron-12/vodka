@@ -39,10 +39,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             </div>
             <div>
               <span className="font-display font-bold text-lg tracking-wider text-stone-100 flex items-center gap-1.5">
-                VODKA <span className="text-amber-400 font-serif-title italic font-normal">Mastery</span>
+                VODKA <span className="text-amber-400 font-serif-title italic font-normal">Presentación</span>
               </span>
-              <p className="text-[10px] uppercase tracking-widest text-stone-400 font-mono-code -mt-1">
-                Revista & Guía Académica
+              <p className="text-[10px] uppercase tracking-widest text-stone-400 font-mono-code -mt-0.5">
+                Proyecto Académico
               </p>
             </div>
           </div>

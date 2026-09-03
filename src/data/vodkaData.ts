@@ -228,7 +228,6 @@ export const ARTICLES: Article[] = [
     readTime: '7 min de lectura',
     author: 'Prof. Sommelier C. Vane',
     date: '31 de Agosto, 2026',
-    coverImage: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=1200&q=80',
     tags: ['Historia', 'Polonia', 'Rusia', 'Mendeleev', 'Zares', 'Smirnoff'],
     excerpt: '¿Sabías que el vodka no nació con 40 grados ni fue inventado por Dmitry Mendeleev? Descubre los orígenes disputados entre Polonia y Rusia y su fascinante salto a Hollywood.',
     keyTakeaways: [
@@ -268,7 +267,6 @@ export const ARTICLES: Article[] = [
     readTime: '9 min de lectura',
     author: 'Ing. Químico D. Alchemist',
     date: '31 de Agosto, 2026',
-    coverImage: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80',
     tags: ['Destilación', 'Química', 'Rectificación', 'Filtración', 'Agua de Glaciar', 'Azeótropo'],
     excerpt: 'Una explicación didáctica con diagramas químicos y físicos sobre cómo se transforma un grano en el destilado más cristalino del mundo.',
     keyTakeaways: [
@@ -315,7 +313,6 @@ export const ARTICLES: Article[] = [
     readTime: '8 min de lectura',
     author: 'Sommelier Internacional J. Martell',
     date: '31 de Agosto, 2026',
-    coverImage: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=80',
     tags: ['Cata Profesional', 'Sommelier', 'Rueda de Aromas', 'Copas', 'Sensorial', 'Maridaje'],
     excerpt: 'El gran error del principiante es beber el vodka congelado en chupito de un solo trago. Aprende a catar visualmente, olfativamente y en paladar para distinguir cereales y texturas.',
     keyTakeaways: [
@@ -370,7 +367,6 @@ export const ARTICLES: Article[] = [
     readTime: '6 min de lectura',
     author: 'Head Bartender S. Rossi',
     date: '31 de Agosto, 2026',
-    coverImage: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=1200&q=80',
     tags: ['Coctelería', 'Martini', 'Moscow Mule', 'Mixología', 'Espresso Martini', 'Recetas'],
     excerpt: 'Cómo la neutralidad y versatilidad del vodka lo convirtieron en el lienzo predilecto de los mejores bartenders del mundo.',
     keyTakeaways: [
@@ -426,13 +422,14 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
     section: 'Introducción General',
     badgeText: 'Portada Académica',
     bullets: [
+      'Presentación académica elaborada por: David Taylor, Edwin Martínez y Servillano Real.',
       'El destilado más consumido y versátil del planeta.',
       'Definición legal: Mínimo 37.5% ABV (UE) o 40% ABV (Estándar Internacional).',
       'Objetivo de la sesión: Desmitificar la falsa creencia de que "todos los vodkas son iguales y no tienen sabor".'
     ],
-    speakerNotes: 'Iniciar saludando a la clase. Destacar que el vodka no es un simple alcohol blanco, sino una obra maestra de ingeniería termodinámica y tradición cultural de más de 600 años.',
-    visualHighlight: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=800&q=80',
-    quote: '"El vodka es agua con alma ardiente." — Proverbio eslavo',
+    speakerNotes: 'Iniciar presentándonos a la clase: David Taylor, Edwin Martínez y Servillano Real. Destacar que el vodka no es un simple alcohol blanco, sino una obra maestra de ingeniería termodinámica y tradición cultural de más de 600 años.',
+    iconName: 'GraduationCap',
+    quote: '"El vodka es agua con alma ardiente." — Presentación por David Taylor, Edwin Martínez y Servillano Real',
     stat: { value: '600+', label: 'Años de historia documentada' }
   },
   {
@@ -447,7 +444,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
       'Mito de Mendeleev: Investigó densidades de mezclas, pero los 40º se fijaron por decreto fiscal en 1894.'
     ],
     speakerNotes: 'Explicar a los compañeros cómo el clima gélido del norte de Europa obligó a buscar cultivos resistentes como el centeno y la patata, convirtiendo la destilación en un método de conservación calórica y comercial.',
-    visualHighlight: 'https://images.unsplash.com/photo-1584225064785-c62a8b43d148?auto=format&fit=crop&w=800&q=80',
+    iconName: 'Scroll',
     quote: 'De medicina monacal a motor económico imperial.',
     stat: { value: '1405', label: 'Año de la primera mención escrita' }
   },
@@ -464,7 +461,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
       'Uvas: Aromas frescos y florales (ej. Cîroc).'
     ],
     speakerNotes: 'Hacer énfasis en cómo el tipo de almidón y los lípidos remanentes tras la destilación marcan la textura final en lengua (mouthfeel), que es el criterio número 1 del sommelier.',
-    visualHighlight: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80',
+    iconName: 'Wheat',
     stat: { value: '5', label: 'Familias botánicas principales' }
   },
   {
@@ -479,7 +476,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
       'Límite de 96.4% ABV: Separación total de metanol, acetaldehído y aceites de fusel.'
     ],
     speakerNotes: 'Mostrar en la diapositiva cómo las columnas de destilación funcionan en bucle continuo, evaporando y condensando el vapor cientos de veces hasta purificar el etanol al máximo.',
-    visualHighlight: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80',
+    iconName: 'Flame',
     stat: { value: '96.4%', label: 'Punto azeotrópico de pureza máxima' }
   },
   {
@@ -494,7 +491,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
       'Matrimonio (Resting): Reposo de 3 a 7 días para formar clústeres estables de agua-etanol.'
     ],
     speakerNotes: 'Recordar que el agua no es solo un diluyente, sino el 60% del líquido que el consumidor bebe. El agua artesiana de deshielo glacial marca la diferencia entre un vodka barato y uno de lujo.',
-    visualHighlight: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+    iconName: 'Droplets',
     stat: { value: '60%', label: 'Porcentaje de agua en la botella' }
   },
   {
@@ -510,7 +507,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
       'Fase Gustativa: Evaluar textura (sedosa vs cremosa), calor en pecho y persistencia final.'
     ],
     speakerNotes: 'Guiar a los compañeros en una demostración visual: cómo observar las lágrimas en la copa, cómo oler sin saturar la nariz y qué buscar en el retrogusto.',
-    visualHighlight: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80',
+    iconName: 'Wine',
     quote: 'En el vodka no se busca la intensidad de la madera, sino la elegancia de la pureza y la textura en boca.',
     stat: { value: '6°C - 8°C', label: 'Temperatura ideal de degustación' }
   },
@@ -526,7 +523,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
       'Conclusión: El vodka es la cumbre de la precisión destiladora y el rey indiscutible de la coctelería mundial.'
     ],
     speakerNotes: 'Cerrar la exposición invitando a preguntas y animando a los compañeros a participar en el cuestionario interactivo de la clase.',
-    visualHighlight: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=800&q=80',
+    iconName: 'GlassWater',
     stat: { value: '#1', label: 'Destilado más consumido a nivel global' }
   }
 ];
@@ -743,6 +740,6 @@ export const BLOGGER_TEMPLATE_SAMPLE = `<!-- ENTRADA DE BLOGGER: GUÍA MAESTRA D
   <p>Para la presentación en el aula, se recomienda servir a <strong>6°C - 8°C</strong> en copa tulipa. Analizar primero la limpidez y la formación de lágrimas en el cristal; luego inhalar suavemente a 3 cm con la boca semiabierta, y finalmente saborear un sorbo de 5 ml evaluando la textura, el calor y la longitud del retrogusto.</p>
 
   <footer style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; font-size: 13px; color: #a0aec0; text-align: center;">
-    Publicación preparada para la Clase de Cultura Gastronómica y Enología • Vodka Mastery Blog
+    Presentación y publicación elaborada por David Taylor, Edwin Martínez y Servillano Real • Clase de Cultura Gastronómica y Enología
   </footer>
 </div>`;

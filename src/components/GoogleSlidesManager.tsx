@@ -38,7 +38,7 @@ export const GoogleSlidesManager: React.FC = () => {
   const [isLoadingDrive, setIsLoadingDrive] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
-  const [customDeckTitle, setCustomDeckTitle] = useState<string>('Vodka Mastery: Presentación Académica Oficial');
+  const [customDeckTitle, setCustomDeckTitle] = useState<string>('Presentación del Vodka - David Taylor, Edwin Martínez & Servillano Real');
 
   useEffect(() => {
     const unsubscribe = initAuth(
@@ -145,7 +145,7 @@ export const GoogleSlidesManager: React.FC = () => {
               Crea y Exporta Diapositivas en Google Slides
             </h2>
             <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-              Exporta las 7 diapositivas académicas de Vodka Mastery (con notas del orador, estadísticas e hitos históricos) directamente a tu cuenta de Google Drive con un solo clic.
+              Exporta las 7 diapositivas académicas elaboradas por David Taylor, Edwin Martínez y Servillano Real (con notas del orador, estadísticas e hitos históricos) directamente a tu cuenta de Google Drive con un solo clic.
             </p>
           </div>
 
@@ -175,13 +175,9 @@ export const GoogleSlidesManager: React.FC = () => {
               </div>
             ) : (
               <div className="flex items-center gap-3 bg-stone-950/80 p-2.5 rounded-2xl border border-stone-800">
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName || 'Usuario'} className="w-9 h-9 rounded-xl border border-amber-500/40" />
-                ) : (
-                  <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-xs">
-                    {user.displayName?.charAt(0) || 'G'}
-                  </div>
-                )}
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center justify-center font-bold text-xs">
+                  {user.displayName?.charAt(0) || 'G'}
+                </div>
                 <div className="text-left pr-2">
                   <p className="text-xs font-bold text-stone-100 line-clamp-1">{user.displayName || 'Usuario Google'}</p>
                   <p className="text-[10px] text-emerald-400 font-mono-code flex items-center gap-1">

@@ -16,7 +16,11 @@ import {
   GraduationCap,
   History,
   Layers,
-  Search
+  Search,
+  FlaskConical,
+  Wine,
+  GlassWater,
+  FileText
 } from 'lucide-react';
 
 interface BlogViewProps {}
@@ -29,6 +33,16 @@ export const BlogView: React.FC<BlogViewProps> = () => {
   const [bookmarkedArticles, setBookmarkedArticles] = useState<string[]>([]);
 
   const categories = ['Todos', 'Historia', 'Fabricación', 'Cata', 'Mixología'];
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'Historia': return <History className="w-6 h-6 text-amber-400" />;
+      case 'Fabricación': return <FlaskConical className="w-6 h-6 text-cyan-400" />;
+      case 'Cata': return <Wine className="w-6 h-6 text-emerald-400" />;
+      case 'Mixología': return <GlassWater className="w-6 h-6 text-purple-400" />;
+      default: return <BookOpen className="w-6 h-6 text-amber-400" />;
+    }
+  };
 
   const filteredArticles = ARTICLES.filter((art) => {
     const matchesCategory = selectedCategory === 'Todos' || art.category === selectedCategory;
@@ -119,14 +133,36 @@ export const BlogView: React.FC<BlogViewProps> = () => {
           </div>
         </div>
 
-        {/* Hero image for article */}
-        <div className="relative rounded-2xl overflow-hidden aspect-[16/9] max-h-[420px] border border-stone-800 shadow-2xl">
-          <img 
-            src={selectedArticle.coverImage} 
-            alt={selectedArticle.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-80" />
+        {/* Editorial Hero Banner for Article */}
+        <div className="relative rounded-2xl overflow-hidden p-8 sm:p-10 border border-stone-800 bg-gradient-to-br from-stone-900 via-stone-950 to-stone-900 shadow-2xl flex flex-col justify-between min-h-[220px]">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-md">
+                {getCategoryIcon(selectedArticle.category)}
+              </div>
+              <div>
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-stone-900 border border-amber-500/30 text-amber-300">
+                  {selectedArticle.category}
+                </span>
+                <span className="ml-2 text-xs text-stone-400 font-mono-code">
+                  {selectedArticle.readTime}
+                </span>
+              </div>
+            </div>
+            <span className="text-xs text-stone-500 font-mono-code">
+              Documento Académico
+            </span>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-4">
+            <p className="text-stone-300 text-sm max-w-2xl leading-relaxed italic">
+              "{selectedArticle.subtitle}"
+            </p>
+            <div className="flex items-center gap-2 text-xs text-amber-400 bg-stone-900/90 px-3 py-1.5 rounded-xl border border-stone-800 font-medium">
+              <FileText className="w-3.5 h-3.5" />
+              <span>Texto Completo con Citas</span>
+            </div>
+          </div>
         </div>
 
         {/* Key Takeaways Box (Academic format) */}
@@ -283,28 +319,31 @@ export const BlogView: React.FC<BlogViewProps> = () => {
                     isFirst ? 'md:col-span-2 md:flex-row' : ''
                   }`}
                 >
-                  {/* Image container */}
-                  <div className={`relative overflow-hidden ${isFirst ? 'md:w-1/2 aspect-[16/10]' : 'aspect-[16/9]'}`}>
-                    <img 
-                      src={article.coverImage} 
-                      alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent" />
-                    
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-bold bg-stone-950/80 backdrop-blur-md text-amber-300 border border-amber-500/30">
-                      {article.category}
-                    </span>
+                  {/* Card Visual Header Banner */}
+                  <div className={`relative overflow-hidden p-6 bg-gradient-to-br from-stone-900 to-stone-950 border-b border-stone-800/80 flex items-center justify-between ${isFirst ? 'md:w-5/12 md:border-b-0 md:border-r' : ''}`}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
+                        {getCategoryIcon(article.category)}
+                      </div>
+                      <div>
+                        <span className="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-stone-950 text-amber-300 border border-amber-500/30">
+                          {article.category}
+                        </span>
+                        <div className="text-[11px] text-stone-500 mt-1 font-mono-code">
+                          {article.readTime}
+                        </div>
+                      </div>
+                    </div>
 
                     <button
                       onClick={(e) => toggleBookmark(article.id, e)}
-                      className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all ${
+                      className={`p-2 rounded-xl border transition-all ${
                         bookmarkedArticles.includes(article.id)
-                          ? 'bg-amber-500 text-stone-950'
-                          : 'bg-stone-900/80 text-stone-300 hover:text-white'
+                          ? 'bg-amber-500 border-amber-400 text-stone-950'
+                          : 'bg-stone-900 border-stone-800 text-stone-400 hover:text-white'
                       }`}
                     >
-                      <Bookmark className="w-3.5 h-3.5" />
+                      <Bookmark className="w-4 h-4" />
                     </button>
                   </div>
 

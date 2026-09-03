@@ -37,7 +37,7 @@ export interface Article {
   readTime: string;
   author: string;
   date: string;
-  coverImage: string;
+  coverImage?: string;
   tags: string[];
   excerpt: string;
   contentHtml: string;
@@ -115,7 +115,8 @@ export interface PresentationSlide {
   section: string;
   bullets: string[];
   speakerNotes: string;
-  visualHighlight: string;
+  visualHighlight?: string;
+  iconName?: string;
   quote?: string;
   stat?: { value: string; label: string };
   badgeText?: string;

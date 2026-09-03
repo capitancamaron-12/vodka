@@ -14,7 +14,15 @@ import {
   Quote, 
   CheckCircle2, 
   Volume2,
-  FolderSync
+  FolderSync,
+  GraduationCap,
+  Scroll,
+  Wheat,
+  Flame,
+  Droplets,
+  Wine,
+  GlassWater,
+  Award
 } from 'lucide-react';
 
 export const PresentationMode: React.FC = () => {
@@ -25,6 +33,19 @@ export const PresentationMode: React.FC = () => {
 
   const slides = PRESENTATION_SLIDES;
   const currentSlide: PresentationSlide = slides[currentSlideIndex];
+
+  const getSlideIcon = (name?: string) => {
+    switch (name) {
+      case 'GraduationCap': return <GraduationCap className="w-12 h-12 text-amber-400" />;
+      case 'Scroll': return <Scroll className="w-12 h-12 text-amber-400" />;
+      case 'Wheat': return <Wheat className="w-12 h-12 text-amber-400" />;
+      case 'Flame': return <Flame className="w-12 h-12 text-amber-400" />;
+      case 'Droplets': return <Droplets className="w-12 h-12 text-blue-400" />;
+      case 'Wine': return <Wine className="w-12 h-12 text-emerald-400" />;
+      case 'GlassWater': return <GlassWater className="w-12 h-12 text-purple-400" />;
+      default: return <Sparkles className="w-12 h-12 text-amber-400" />;
+    }
+  };
 
   const handleNext = useCallback(() => {
     setCurrentSlideIndex(prev => Math.min(slides.length - 1, prev + 1));
@@ -208,18 +229,29 @@ export const PresentationMode: React.FC = () => {
                 )}
               </div>
 
-              {/* Right Visual Image / Metric Card */}
+              {/* Right Visual Graphical / Metric Card */}
               <div className="lg:col-span-5 space-y-4">
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-stone-800 shadow-xl group">
-                  <img 
-                    src={currentSlide.visualHighlight} 
-                    alt={currentSlide.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent" />
-                  
+                <div className="relative rounded-2xl overflow-hidden p-6 sm:p-8 border border-stone-800 bg-gradient-to-br from-stone-900 via-stone-950 to-stone-900 shadow-xl flex flex-col justify-between min-h-[260px] group">
+                  <div className="flex items-center justify-between">
+                    <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg">
+                      {getSlideIcon(currentSlide.iconName)}
+                    </div>
+                    <span className="text-[11px] font-mono-code text-amber-300 bg-stone-950/90 px-3 py-1 rounded-lg border border-amber-500/30">
+                      Diapositiva #{currentSlide.id}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 mt-4">
+                    <span className="text-xs font-semibold text-stone-400 uppercase tracking-wider">
+                      {currentSlide.section}
+                    </span>
+                    <h4 className="text-lg font-bold text-stone-100 leading-snug">
+                      {currentSlide.title}
+                    </h4>
+                  </div>
+
                   {currentSlide.stat && (
-                    <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-stone-950/90 backdrop-blur-md border border-amber-500/30 flex items-center justify-between">
+                    <div className="mt-4 p-4 rounded-xl bg-stone-950/90 border border-amber-500/30 flex items-center justify-between">
                       <span className="text-xs text-stone-300">{currentSlide.stat.label}</span>
                       <span className="text-xl font-bold font-mono-code text-amber-400">{currentSlide.stat.value}</span>
                     </div>

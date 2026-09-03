@@ -30,18 +30,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           <div className="lg:col-span-7 space-y-5 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-medium tracking-wide">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Proyecto & Presentación Académica sobre el Vodka</span>
+              <span>Proyecto &amp; Presentación Académica</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif-title font-bold text-stone-50 leading-[1.18] tracking-tight">
-              La Alquimia del Vodka: <br />
+              Presentación: <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 italic">
                 Historia, Ciencia y Destilación
               </span>
             </h1>
 
             <p className="text-stone-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-              Una enciclopedia visual interactiva y blog de alta divulgación diseñado para presentaciones de clase. Explora desde los orígenes medievales en Polonia y Rusia hasta la destilación continua a 96% ABV, materias primas y catálogo de maquinaria industrial.
+              Proyecto presentación académica sobre la elaboración química casera de vodka. <strong className="text-amber-300">David Taylor</strong>, <strong className="text-amber-300">Edwin Martínez</strong>, <strong className="text-amber-300">Servillano Real</strong>.
             </p>
 
             {/* Quick Action Buttons */}
