@@ -24,6 +24,8 @@ export interface IndustrialEquipmentItem {
   maintenanceAndSanitization: string;
   industrialDiagramDetails: string[];
   imagePlaceholderIcon: string;
+  imageUrl?: string;
+  imageAlt?: string;
   academicImportance: string;
 }
 

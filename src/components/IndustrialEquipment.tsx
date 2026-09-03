@@ -29,7 +29,8 @@ import {
   ChevronRight,
   Cog,
   Droplet,
-  Snowflake
+  Snowflake,
+  Image as ImageIcon
 } from 'lucide-react';
 
 export const IndustrialEquipment: React.FC = () => {
@@ -113,7 +114,7 @@ export const IndustrialEquipment: React.FC = () => {
         </h1>
 
         <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-          Catálogo técnico de maquinaria industrial, columnas de rectificación continua, unidades de filtración molecular con carbón de abedul y líneas asépticas de embotellado con especificaciones físico-químicas de planta.
+          Catálogo técnico de maquinaria industrial, columnas de rectificación continua, unidades de filtración molecular con carbón de abedul y líneas asépticas de embotellado con especificaciones físico-químicas y fotografías de planta.
         </p>
       </div>
 
@@ -333,6 +334,38 @@ export const IndustrialEquipment: React.FC = () => {
                   {isExpanded && (
                     <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-stone-800/80 space-y-6 animate-fadeIn">
                       
+                      {/* Image Hero with Technical Overlay */}
+                      {equipment.imageUrl && (
+                        <div className="relative w-full h-48 sm:h-64 rounded-2xl overflow-hidden border border-stone-800 bg-stone-950 group">
+                          <img
+                            src={equipment.imageUrl}
+                            alt={equipment.imageAlt || equipment.name}
+                            loading="lazy"
+                            referrerPolicy="no-referrer"
+                            onError={(e) => {
+                              // Graceful fallback: hide broken image container
+                              (e.target as HTMLElement).style.display = 'none';
+                            }}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85 hover:opacity-100"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent flex items-end p-4 sm:p-5">
+                            <div className="flex flex-wrap items-center justify-between gap-2 w-full">
+                              <div className="flex items-center gap-2">
+                                <span className="p-1 rounded-md bg-stone-900/80 backdrop-blur-sm border border-stone-700 text-amber-400 text-xs">
+                                  <ImageIcon className="w-3.5 h-3.5" />
+                                </span>
+                                <span className="text-xs font-medium text-stone-200 backdrop-blur-sm bg-stone-950/70 px-2.5 py-1 rounded-lg border border-stone-800">
+                                  {equipment.imageAlt}
+                                </span>
+                              </div>
+                              <span className="text-[11px] font-mono-code text-amber-300 bg-stone-950/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-amber-500/30">
+                                Ref. Industrial #{equipment.phaseNumber}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Summary Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         
@@ -524,10 +557,28 @@ export const IndustrialEquipment: React.FC = () => {
                   {item.phaseNumber}
                 </div>
 
-                {/* Icon Box */}
-                <div className="w-12 h-12 rounded-2xl bg-stone-900 border border-stone-800 flex items-center justify-center shrink-0">
-                  {getEquipmentIcon(item.imagePlaceholderIcon)}
-                </div>
+                {/* Thumbnail / Icon Box */}
+                {item.imageUrl ? (
+                  <div className="w-full md:w-32 h-24 rounded-2xl overflow-hidden bg-stone-900 border border-stone-800 shrink-0 relative">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.imageAlt || item.name}
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute top-1.5 left-1.5 p-1 rounded-lg bg-stone-950/80 backdrop-blur-sm border border-stone-800">
+                      {getEquipmentIcon(item.imagePlaceholderIcon)}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="w-12 h-12 rounded-2xl bg-stone-900 border border-stone-800 flex items-center justify-center shrink-0">
+                    {getEquipmentIcon(item.imagePlaceholderIcon)}
+                  </div>
+                )}
 
                 <div className="space-y-3 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
@@ -700,6 +751,27 @@ export const IndustrialEquipment: React.FC = () => {
             {/* Modal Body: Fast Specs Overview */}
             <div className="overflow-y-auto p-4 sm:p-6 space-y-6">
               
+              {/* Modal Image Header */}
+              {selectedSpecEquipment.imageUrl && (
+                <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden border border-stone-800 bg-stone-950">
+                  <img
+                    src={selectedSpecEquipment.imageUrl}
+                    alt={selectedSpecEquipment.imageAlt || selectedSpecEquipment.name}
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent flex items-end p-4">
+                    <span className="text-xs font-medium text-stone-200 backdrop-blur-md bg-stone-900/80 px-3 py-1 rounded-lg border border-stone-700">
+                      {selectedSpecEquipment.imageAlt}
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Fast Technical Summary */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
