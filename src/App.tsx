@@ -98,7 +98,7 @@ export default function App() {
               </div>
               <div>
                 <span className="font-display font-bold text-sm tracking-wider text-stone-200">
-                  DAVID TAYLOR • EDWIN MARTÍNEZ • SERVILLANO REAL
+                  DAVID TAYLOR • ELVIN MARTÍNEZ • SAHIRY VILLAREAL
                 </span>
                 <p className="text-[11px] text-stone-500">
                   Presentación de Clase &amp; Proyecto Académico sobre el Vodka

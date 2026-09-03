@@ -422,7 +422,7 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
     section: 'Introducción General',
     badgeText: 'Portada Académica',
     bullets: [
-      'Presentación académica elaborada por: David Taylor, Edwin Martínez y Servillano Real.',
+      'Presentación académica elaborada por: David Taylor, Elvin Martínez y Sahiry Villareal.',
       'El destilado más consumido y versátil del planeta.',
       'Definición legal: Mínimo 37.5% ABV (UE) o 40% ABV (Estándar Internacional).',
       'Objetivo de la sesión: Desmitificar la falsa creencia de que "todos los vodkas son iguales y no tienen sabor".'
