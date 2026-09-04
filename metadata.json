@@ -1,6 +1,6 @@
 {
   "name": "Presentación del Vodka: Historia, Ciencia y Destilación",
-  "description": "Proyecto presentación académica sobre la elaboración química casera de vodka. David Taylor, Edwin Martínez, Servillano Real.",
+  "description": "Proyecto y presentación académica sobre la elaboración química, ciencia y destilación del vodka. Elvin Martínez, Sahiry Villareal, David Taylor.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

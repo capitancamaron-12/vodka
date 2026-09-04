@@ -6,6 +6,7 @@ import { BlogView } from './components/BlogView';
 import { DistillationLab } from './components/DistillationLab';
 import { PresentationMode } from './components/PresentationMode';
 import { IndustrialEquipment } from './components/IndustrialEquipment';
+import { AuthorsFloatingBubble } from './components/AuthorsFloatingBubble';
 import { 
   GraduationCap,
   Layers
@@ -146,6 +147,9 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Team Authors Bubble Widget */}
+      <AuthorsFloatingBubble />
 
     </div>
   );
